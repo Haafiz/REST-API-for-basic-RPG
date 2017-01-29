@@ -13,19 +13,21 @@ class CreateFightsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fights', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('opponent_id')->unsigned();
-            $table->integer('character_id')->unsigned();
-            $table->enum('status', ['won', 'lost', 'draw']);
-            $table->integer('experience');
+        Schema::create(
+            'fights', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('opponent_id')->unsigned();
+                $table->integer('character_id')->unsigned();
+                $table->enum('status', ['won', 'lost', 'draw']);
+                $table->integer('experience');
 
-            //indexes
-            $table->foreign('opponent_id')->references('id')->on('characters');
-            $table->foreign('character_id')->references('id')->on('characters');
+                //indexes
+                $table->foreign('opponent_id')->references('id')->on('characters');
+                $table->foreign('character_id')->references('id')->on('characters');
 
-            $table->timestamps();
-        });
+                $table->timestamps();
+            }
+        );
     }
 
     /**

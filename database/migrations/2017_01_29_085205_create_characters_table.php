@@ -13,18 +13,20 @@ class CreateCharactersTable extends Migration
      */
     public function up()
     {
-        Schema::create('characters', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->integer('age')->unsigned();
-            $table->integer('attack')->unsigned();
-            $table->integer('defense')->unsigned();
-            $table->integer('user_id')->unsigned()->nullable();
+        Schema::create(
+            'characters', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->integer('age')->unsigned();
+                $table->integer('attack')->unsigned();
+                $table->integer('defense')->unsigned();
+                $table->integer('user_id')->unsigned()->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
+                $table->foreign('user_id')->references('id')->on('users');
 
-            $table->timestamps();
-        });
+                $table->timestamps();
+            }
+        );
     }
 
     /**

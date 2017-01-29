@@ -52,10 +52,12 @@ class AuthController extends Controller
      */
     protected function validateLoginRequest(Request $request)
     {
-        $this->validate($request, [
+        $this->validate(
+            $request, [
             'email' => 'required|email|max:255',
             'password' => 'required',
-        ]);
+            ]
+        );
     }
 
     /**
@@ -65,9 +67,11 @@ class AuthController extends Controller
      */
     protected function onBadRequest()
     {
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             'message' => 'invalid_credentials'
-        ], Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_BAD_REQUEST
+        );
     }
 
     /**
@@ -77,9 +81,11 @@ class AuthController extends Controller
      */
     protected function onUnauthorized()
     {
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             'message' => 'invalid_credentials'
-        ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_UNAUTHORIZED
+        );
     }
 
     /**
@@ -89,9 +95,11 @@ class AuthController extends Controller
      */
     protected function onJwtGenerationError()
     {
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             'message' => 'could_not_create_token'
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR
+        );
     }
 
     /**
@@ -101,12 +109,14 @@ class AuthController extends Controller
      */
     protected function onAuthorized($token)
     {
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             'message' => 'token_generated',
             'data' => [
-                'token' => $token,
+            'token' => $token,
             ]
-        ]);
+            ]
+        );
     }
 
     /**
@@ -146,12 +156,14 @@ class AuthController extends Controller
 
         $newToken = $token->refresh();
 
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             'message' => 'token_refreshed',
             'data' => [
-                'token' => $newToken
+            'token' => $newToken
             ]
-        ]);
+            ]
+        );
     }
 
     /**
@@ -161,9 +173,11 @@ class AuthController extends Controller
      */
     public function getUser()
     {
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             'message' => 'authenticated_user',
             'data' => JWTAuth::parseToken()->authenticate()
-        ]);
+            ]
+        );
     }
 }

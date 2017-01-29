@@ -49,9 +49,11 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if ($e instanceof HttpException) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                 'message' => $e->getMessage() ?: $this->getMessageFromClassName($e),
-            ], $e->getStatusCode());
+                ], $e->getStatusCode()
+            );
         }
 
         return parent::render($request, $e);
@@ -69,10 +71,12 @@ class Handler extends ExceptionHandler
         $class = get_class($e);
         $file = Arr::last(explode('\\', $class));
 
-        return Str::snake(str_ireplace(
-            ['HttpException', 'Exception'],
-            ['', ''],
-            $file
-        ));
+        return Str::snake(
+            str_ireplace(
+                ['HttpException', 'Exception'],
+                ['', ''],
+                $file
+            )
+        );
     }
 }

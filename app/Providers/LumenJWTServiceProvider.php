@@ -334,10 +334,12 @@ class LumenJWTServiceProvider extends ServiceProvider
      */
     protected function registerJwtAuthMiddleware()
     {
-        $this->app->routeMiddleware([
+        $this->app->routeMiddleware(
+            [
             'jwt.auth' => GetUserFromToken::class,
             'jwt.refresh' => RefreshToken::class,
-        ]);
+            ]
+        );
     }
 
     /**

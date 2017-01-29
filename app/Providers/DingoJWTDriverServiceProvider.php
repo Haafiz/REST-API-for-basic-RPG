@@ -26,8 +26,10 @@ class DingoJWTDriverServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make(Auth::class)->extend('jwt', function ($app) {
-            return new JWT($app->make(JWTAuth::class));
-        });
+        $this->app->make(Auth::class)->extend(
+            'jwt', function ($app) {
+                return new JWT($app->make(JWTAuth::class));
+            }
+        );
     }
 }
