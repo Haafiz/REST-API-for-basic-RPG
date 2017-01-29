@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Character;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,5 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call('UserTableSeeder');
+        $this->call('CharacterTableSeeder');
     }
 }
