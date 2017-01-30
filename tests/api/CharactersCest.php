@@ -56,6 +56,8 @@ class CharactersCest {
         $token = JWTAuth::fromUser($user);
         $I->amBearerAuthenticated($token);
 
+        $I->wantTo("Create Character as Authnticated User");
+        
         $I->sendPOST(
                 '/me', [
                     'name' => 'Nam1', 
@@ -75,11 +77,11 @@ class CharactersCest {
 
     public function seeAuthenticatedUserCharacter() {
         $user = User::first();
-
+        
         $token = JWTAuth::fromUser($user);
         $I->amBearerAuthenticated($token);
 
-        $I->wantTo('See Authenticated User Character');
+        $I->wantTo('See my Character as Authenticated User');
         $I->sendGET('/me');
 
         $I->seeResponseCodeIsJson();

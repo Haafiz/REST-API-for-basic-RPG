@@ -35,7 +35,7 @@ class CharactersCest
         $opponentId = Character::first();
         
         $I->wantTo("Show Character with Character ID");
-        $I->sendGET("/characters/$characterId");
+        $I->sendGET("/characters/$opponentId");
         
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
