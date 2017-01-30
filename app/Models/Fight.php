@@ -20,4 +20,8 @@ class Fight extends Model
     protected $fillable = [
         'character_id', 'opponent_id', 'status', 'experience_points'
     ];
+    
+    public function getFightsByCharacter($character) {
+        return $character->fights();
+    }
 }

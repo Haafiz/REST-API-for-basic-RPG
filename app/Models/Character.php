@@ -4,17 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Character extends Model
-{
+class Character extends Model {
 
-    public function user()
-    {
-        $this->belongsToOne('App\Models\User');
+    public function user() {
+        return $this->belongsToOne('App\Models\User');
     }
 
-    public function fights()
-    {
-        $this->hasMany('App\Models\Fight', 'user_character_id');
+    public function fights() {
+        return $this->hasMany('App\Models\Fight', 'user_character_id');
     }
 
     /**
@@ -25,4 +22,12 @@ class Character extends Model
     protected $fillable = [
         'name', 'age', 'attack_ability', 'defense_ability'
     ];
+    
+    public function getList() {
+        return $this->select('id', 'name')->get();
+    }
+    
+    
+    
+    
 }
