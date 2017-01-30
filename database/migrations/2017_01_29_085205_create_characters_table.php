@@ -18,8 +18,7 @@ class CreateCharactersTable extends Migration
                 $table->increments('id');
                 $table->string('name');
                 $table->integer('age')->unsigned();
-                $table->integer('attack')->unsigned();
-                $table->integer('defense')->unsigned();
+                $table->string('skilled_in');
                 $table->integer('user_id')->unsigned()->nullable();
 
                 $table->foreign('user_id')->references('id')->on('users');

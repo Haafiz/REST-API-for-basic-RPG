@@ -22,8 +22,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Character::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'attack' => $faker->numberBetween($min=0, $max=50),
-        'defense' => $faker->numberBetween($min=0, $max=50),
+        'skilled_in' => $faker->sentence,
         'age' => $faker->numberBetween($min=12, $max=80),
         'user_id' => null,
     ];

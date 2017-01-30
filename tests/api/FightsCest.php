@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Character;
+use App\Models\User;
 
 class CharactersCest
 {
@@ -44,16 +45,5 @@ class CharactersCest
         $I->seeResponseJsonMatchesJsonPath('$.data.id');
         $I->seeResponseJsonMatchesJsonPath('$.data.name');
         $I->seeResponseJsonMatchesJsonPath('$.data.age');
-    }
-    
-    public function tryToshowSpecificCharacterWithWrongCharacterId(ApiTester $I)
-    {
-        $characterId = 99999;
-        
-        $I->wantTo("Try to Show Character with wrong/invalid Character ID");
-        $I->sendGET("/characters/$characterId");
-        
-        $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(404);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Character;
+use App\Models\User;
+use Faker\Generator;
 
 class CharactersCest {
 
@@ -50,7 +52,7 @@ class CharactersCest {
         $I->seeResponseCodeIs(404);
     }
 
-    public function createUserCharacter() {
+    public function createUserCharacter(ApiTester $I, Generator $faker) {
         $user = User::first();
 
         $token = JWTAuth::fromUser($user);
@@ -60,9 +62,9 @@ class CharactersCest {
         
         $I->sendPOST(
                 '/me', [
-                    'name' => 'Nam1', 
-                    'age' => 28,
-                    'skilled_in' => 'sword fighting',
+                    'name' => $faker->name, 
+                    'age' => $faker->numberBetween($min=12, $max=80),
+                    'skilled_in' => $faker->sentence,
                     'user_id' => $user->id
                     ]
         );
@@ -75,8 +77,10 @@ class CharactersCest {
         $I->seeResponseJsonMatchesJsonPath('$.data.age');
     }
 
-    public function seeAuthenticatedUserCharacter() {
-        $user = User::first();
+    public function seeAuthenticatedUserCharacter(ApiTester $I) {
+        $user = User::first();  
+        
+        factory('App\Models\Character')->create(['user_id' => $user->id]);
         
         $token = JWTAuth::fromUser($user);
         $I->amBearerAuthenticated($token);
