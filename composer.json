@@ -7,14 +7,15 @@
     "require": {
         "php": ">=5.6.4",
         "laravel/lumen-framework": "5.3.*",
-        "vlucas/phpdotenv": "~2.2",
         "krisanalfa/lumen-dingo-adapter": "^0.0.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~5.0",
         "mockery/mockery": "~0.9",
-        "flipbox/lumen-generator": "^5.3"
+        "flipbox/lumen-generator": "^5.3",
+        "codeception/codeception": "^2.2",
+        "flow/jsonpath": "^0.3.4"
     },
     "autoload": {
         "psr-4": {

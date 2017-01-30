@@ -1,2 +1,7 @@
 /vendor
 .env
+
+tests/_output/*
+/nbproject/private/
+/store/framework/cache/
+/nbproject/

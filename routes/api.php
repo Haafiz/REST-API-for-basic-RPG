@@ -24,7 +24,7 @@ $api->version(
 
         $api->group(
             [
-            'middleware' => 'api.auth',
+            'middleware' => ['parseToken', 'api.auth'],
             ], function ($api) {
                 $api->get(
                     '/', [

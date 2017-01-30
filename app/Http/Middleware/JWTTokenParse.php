@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 use Closure;
 
-class ExampleMiddleware
-{
+class JWTTokenParse {
+
     /**
      * Handle an incoming request.
      *
@@ -13,8 +15,12 @@ class ExampleMiddleware
      * @param  \Closure                 $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
+        if (env('APP_ENV') === 'testing') {
+            JWTAuth::setRequest($request);
+        }
+        
         return $next($request);
     }
+
 }

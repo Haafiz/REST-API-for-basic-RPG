@@ -1,0 +1,10 @@
+class_name: ApiTester
+modules:
+    enabled:
+        - REST:
+            url: /api
+            depends: Lumen
+        - Lumen
+        - Filesystem
+        - Asserts
+        - Helper\Api

@@ -11,7 +11,8 @@ class CharacterTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Models\Character', 10)->create([
+        factory('App\Models\Character', 10)->create(
+        [
             'user_id' => null,
         ]);
     }
