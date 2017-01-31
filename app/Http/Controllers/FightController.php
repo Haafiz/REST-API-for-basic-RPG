@@ -12,9 +12,11 @@ use Illuminate\Http\Exception\HttpResponseException;
 use App\Models\Character;
 use App\Models\Fight;
 
-class CharacterController extends Controller {
+class FightController extends Controller {
 
     public function __construct(Fight $model) {
+        $user = JWTAuth::parseToken()->authenticate();
+        $this->character = $user->character()->first();
         $this->model = $model;
     }
 
@@ -26,10 +28,7 @@ class CharacterController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-
-        $user = JWTAuth::parseToken()->authenticate();
-        $character = $user->character();
-        
+        $character = $this->character;
         if (!$character) {
             return JsonResponse(
                 [
@@ -39,8 +38,8 @@ class CharacterController extends Controller {
             );
         }
 
-        $fights = $character->fights();
-
+        $fights = $character->fights;
+        
         return [
             'message' => 'fights_list',
             'data' => $fights
@@ -48,60 +47,21 @@ class CharacterController extends Controller {
     }
 
     public function store(Request $request, Character $characterModel) {
-        $user = JWTAuth::parseToken()->authenticate();
-        $character = $user->character();
-        
-        $errorArr = [];
-        if (!$character) {
-            $errorArr[] = [
-                'error' => 'character_not_exist',
-                'error_detail' => 'Fight Belongs to Characters so first create Character'
-                ];
-        }
+
+        $character = $this->character;
         
         $opponentId = $request->get('opponent_id');
-        if(!$opponentId){
-            $errorArr[] = [
-                'error' => 'no_opponent_id',
-                'error' => 'No opponent ID provided, please provide opponent ID',
-                ];
-        }
-        
         $opponent = $characterModel->find($opponentId);
-        if(!$opponent){
-            $errorArr[] = [
-                'error' => 'invalid_opponent_id',
-                'error_detail' => 'There is no charcter with this opponent ID'
-                ];
+        
+        if(!$this->model->validateFightInput($character, $opponent)){
+            return new JsonResponse($this->model->errors, Response::HTTP_BAD_REQUEST);
         }
         
-        if(count($errorArr)){
-            return new JsonResponse($errorArr, Response::HTTP_BAD_REQUEST);
-        }
-        
-        $fightPossibilities = ['won', 'lost', 'draw'];
-        $fightStatus = $fightPossibilities[rand(0,2)];
-        
-        if($fightStatus === 'won' || $fightStatus === 'lost'){
-            $experience = 2;
-        } else {
-            $experience = 1;
-        }
-        
-        $fightArr = [
-            'experience' => $experience,
-            'character_id' => $characterId,
-            'opponent_id' => $opponentId,
-            'status' => $fightStatus
-        ];
-        
-        $this->model->create($fightArr);
+        $fight = $this->model->createFight($character->id, $opponentId);
             
         return [
             'message' => 'fight_completed',
-            'data' => [
-                'fight' => $fightArr
-            ]
+            'data' => $fight
         ];
     }
 

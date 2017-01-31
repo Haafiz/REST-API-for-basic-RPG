@@ -20,3 +20,11 @@ modules:
             password: '786'
             dump: tests/_data/rpg.sql
             populate: true
+coverage:
+    enabled: true
+    include:
+        - app/Http/*
+        - app/Models/*
+        - app/Providers/*
+    exclude:
+        - app/storage

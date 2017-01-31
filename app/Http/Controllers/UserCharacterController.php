@@ -28,10 +28,9 @@ class UserCharacterController extends Controller {
      */
     public function store(Request $request) {
         $input = $request->all();
-        //dd($currentUser);
         $input['user_id'] = $this->currentUser->id;
         
-        $validator = \Validator::make($input, $this->model->userCharacterRules);
+        $validator = \Validator::make($input, $this->model->getValidationRules());
         if ($validator->fails()) {
             return new JsonResponse(
                     [
@@ -49,8 +48,6 @@ class UserCharacterController extends Controller {
     }
 
     public function show(Request $request) {
-        $characters = Character::all();
-        
         $character = $this->currentUser->character()->first();
         if (!$character) {
             return new JsonResponse(

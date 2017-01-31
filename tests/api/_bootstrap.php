@@ -1,3 +1,5 @@
 <?php
+(new Dotenv\Dotenv(__DIR__.'/../../'))->load();
 putenv('APP_ENV=testing');
-putenv('DB_DATABASE=testrpg');
+$testDB = env(DB_TEST_DATABASE);
+putenv("DB_DATABASE=$testDB");

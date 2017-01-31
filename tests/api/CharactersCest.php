@@ -14,7 +14,11 @@ class CharactersCest {
         
     }
 
-    // tests
+    /**
+     * List Characters Endpoint test
+     * 
+     * @param ApiTester $I
+     */
     public function listCharacters(ApiTester $I) {
         $I->wantTo("List all characters");
         $I->sendGET("/characters");
@@ -27,6 +31,11 @@ class CharactersCest {
         $I->seeResponseJsonMatchesJsonPath('$.data[*].name');
     }
 
+    /**
+     * See Single Character using Character ID test
+     * 
+     * @param ApiTester $I
+     */
     public function seeSpecificCharacter(ApiTester $I) {
         $characterId = Character::first()->id;
 
@@ -42,6 +51,12 @@ class CharactersCest {
         $I->seeResponseJsonMatchesJsonPath('$.data.age');
     }
 
+    /**
+     * Try See Specific Chracter while using Wrong Character ID which should 
+     * provide 404
+     * 
+     * @param ApiTester $I
+     */
     public function tryToSeeSpecificCharacterWithWrongCharacterId(ApiTester $I) {
         $characterId = 99999;
 
@@ -52,6 +67,11 @@ class CharactersCest {
         $I->seeResponseCodeIs(404);
     }
 
+    /**
+     * Test Creation of User Character as Authenitcated User
+     * 
+     * @param ApiTester $I
+     */
     public function createUserCharacter(ApiTester $I) {
         $user = User::first();
 
@@ -76,6 +96,11 @@ class CharactersCest {
         $I->seeResponseJsonMatchesJsonPath('$.data.age');
     }
 
+    /**
+     * Testing See Authenticated User's Character
+     * 
+     * @param ApiTester $I
+     */
     public function seeAuthenticatedUserCharacter(ApiTester $I) {
         $user = User::first();
         

@@ -5,6 +5,11 @@ use App\Models\User;
 
 class AuthUserCest
 {
+    /**
+     * Setting up user authentication related stuff before running test
+     * 
+     * @param ApiTester $I
+     */
     public function _before(ApiTester $I)
     {
         $user = User::first();
@@ -17,7 +22,11 @@ class AuthUserCest
     {
     }
 
-    // tests
+    /**
+     * Test getting current authenticated User info.
+     * 
+     * @param ApiTester $I
+     */
     public function getCurrentAuthenticatedUser(ApiTester $I)
     {
         $I->wantTo("See Current Authenticated User's info ");

@@ -11,7 +11,7 @@ class Character extends Model {
     }
 
     public function fights() {
-        return $this->hasMany('App\Models\Fight', 'user_character_id');
+        return $this->hasMany('App\Models\Fight', 'character_id');
     }
 
     /**
@@ -22,19 +22,35 @@ class Character extends Model {
     protected $fillable = [
         'name', 'age', 'skilled_in', 'user_id'
     ];
-    
+
+    /**
+     * Get Character List
+     * 
+     * @return Collection
+     */
     public function getList() {
         return $this->select('id', 'name')->get();
     }
-    
-    public $userCharacterRules = [
+
+    /**
+     * Validation Rules for creating Character
+     *
+     * @var array 
+     */
+    protected static $validationRules = [
         'name' => 'required|min:2',
         'age' => 'required|Integer',
         'skilled_in' => 'required',
         'user_id' => 'required|unique:characters'
     ];
-    
-    
-    
-    
+
+    /**
+     * Get Validation Rules
+     * 
+     * @return Array Associative Array
+     */
+    public function getValidationRules() {
+        return static::$validationRules;
+    }
+
 }

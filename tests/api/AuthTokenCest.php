@@ -5,6 +5,11 @@ use App\Models\User;
 
 class AuthTokenCest
 {
+    /**
+     * Setting up user authentication related stuff before running test
+     * 
+     * @param ApiTester $I
+     */
     public function _before(ApiTester $I)
     {
         $user = User::first();
@@ -18,7 +23,11 @@ class AuthTokenCest
     {
     }
 
-    // tests
+    /**
+     * Test Authentication Refresh
+     * 
+     * @param ApiTester $I
+     */
     public function refreshAuthenticationToken(ApiTester $I)
     {
         $I->wantTo("Refresh Authentication Token");
@@ -34,6 +43,11 @@ class AuthTokenCest
         $I->assertNotEquals($token, $this->token);
     }
     
+    /**
+     * Test Invalidating authentication
+     * 
+     * @param ApiTester $I
+     */
     public function invalidateAuthenticationToken(ApiTester $I)
     {
         $I->wantTo("Invalidate Authentication Token");

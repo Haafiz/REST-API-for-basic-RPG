@@ -27,3 +27,15 @@ $factory->define(App\Models\Character::class, function (Faker\Generator $faker) 
         'user_id' => null,
     ];
 });
+
+$factory->define(App\Models\Fight::class, function (Faker\Generator $faker) {
+    $possibilities = ['won', 'lost', 'draw'];
+    $status = $possibilities[rand(0,2)];
+    $character = App\Models\Character::first();
+    
+    return [
+        'opponent_id' => $character->id,
+        'character_id' => null,
+        'status' => $status
+    ];
+});
