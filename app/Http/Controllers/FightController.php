@@ -10,14 +10,14 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Exception\HttpResponseException;
 use App\Models\Character;
-use App\Models\Fight;
+use App\Repositories\FightRepository;
 
 class FightController extends Controller {
 
-    public function __construct(Fight $model) {
+    public function __construct(FightRepository $repo) {
         $user = JWTAuth::parseToken()->authenticate();
         $this->character = $user->character()->first();
-        $this->model = $model;
+        $this->repo = $repo;
     }
 
     /**
@@ -53,11 +53,11 @@ class FightController extends Controller {
         $opponentId = $request->get('opponent_id');
         $opponent = $characterModel->find($opponentId);
         
-        if(!$this->model->validateFightInput($character, $opponent)){
-            return new JsonResponse($this->model->errors, Response::HTTP_BAD_REQUEST);
+        if(!$this->repo->validateFightInput($character, $opponent)){
+            return new JsonResponse($this->repo->errors, Response::HTTP_BAD_REQUEST);
         }
         
-        $fight = $this->model->createFight($character->id, $opponentId);
+        $fight = $this->repo->createFight($character->id, $opponentId);
             
         return [
             'message' => 'fight_completed',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Repositories\CharacterRepository;
 use App\Models\Character;
 use Illuminate\Support\Collection;
 
@@ -7,7 +8,6 @@ class CharacterTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->character = Mockery::mock('App\Models\Character[getList]');
     }
 
     protected function tearDown()
@@ -15,11 +15,15 @@ class CharacterTest extends \PHPUnit_Framework_TestCase
     }
 
     // tests
-    public function testGetCharacterList()
+    public function testGetCharacterValidationRules()
     {
-        $character = new Character;
-        $characters = $character->getValidationRules();
+        $characterModel = new Character;
         
-        $this->assertInstanceOf(Collection::class, $characters);
+        $characterRepo = new CharacterRepository($characterModel);
+        $characters = $characterRepo->getValidationRules();
+        
+        $this->assertArrayHasKey('name', $characters);
+        $this->assertArrayHasKey('age', $characters);
+        $this->assertArrayHasKey('skilled_in', $characters);
     }
 }
