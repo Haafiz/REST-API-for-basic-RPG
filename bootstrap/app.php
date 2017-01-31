@@ -101,7 +101,7 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-   'parseToken' => App\Http\Middleware\JWTTokenParse::class, 
+   'parseToken' => App\Http\Middleware\JWTTokenParse::class,
     // 'auth' => App\Http\Middleware\Authenticate::class,
 ]);
 
@@ -117,12 +117,14 @@ $app->routeMiddleware([
 */
 
  $app->register(App\Providers\AppServiceProvider::class);
- $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
  $app->register(App\Providers\GuardServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 // Dingo Adapter for Lumen
 $app->register(Zeek\LumenDingoAdapter\Providers\LumenDingoAdapterServiceProvider::class);
+
+$app->configure('auth');
 
 // Lumen Generator disabled it on production if you want
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);

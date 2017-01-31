@@ -20,12 +20,19 @@ class Character extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'age', 'attack_ability', 'defense_ability'
+        'name', 'age', 'skilled_in', 'user_id'
     ];
     
     public function getList() {
         return $this->select('id', 'name')->get();
     }
+    
+    public $userCharacterRules = [
+        'name' => 'required|min:2',
+        'age' => 'required|Integer',
+        'skilled_in' => 'required',
+        'user_id' => 'required|unique:characters'
+    ];
     
     
     

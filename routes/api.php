@@ -24,8 +24,8 @@ $api->version(
 
     $api->resource(
             'characters', 'App\Http\Controllers\CharacterController', ['only' => [
-                'index', 'show'
-                ]
+            'index', 'show'
+        ]
             ]
     );
 
@@ -69,15 +69,23 @@ $api->version(
 
         /* Fight and User Character specific routes */
         $api->resource(
-                'me/fights', 'App\Http\Controllers\FightController@index', ['only' => [
+                '/me/fights', 'App\Http\Controllers\FightController@index', ['only' => [
                 'index', 'store'
             ]]
         );
 
-        $api->resource(
-                '/me', 'App\Http\Controllers\UserCharacterController', ['only' => [
-                'store', 'show'
-            ]]
+        $api->post(
+                '/me', [
+            'uses' => 'App\Http\Controllers\UserCharacterController@store',
+            'as' => 'api.usercharacter.store'
+                ]
+        );
+        
+        $api->get(
+                '/me', [
+            'uses' => 'App\Http\Controllers\UserCharacterController@show',
+            'as' => 'api.usercharacter.show'
+                ]
         );
     }
     );

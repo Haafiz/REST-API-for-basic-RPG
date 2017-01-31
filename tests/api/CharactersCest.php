@@ -2,15 +2,15 @@
 
 use App\Models\Character;
 use App\Models\User;
-use Faker\Generator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CharactersCest {
 
     public function _before(ApiTester $I) {
         
     }
-
-    public function _after(ApiTester $I) {
+ 
+   public function _after(ApiTester $I) {
         
     }
 
@@ -52,7 +52,7 @@ class CharactersCest {
         $I->seeResponseCodeIs(404);
     }
 
-    public function createUserCharacter(ApiTester $I, Generator $faker) {
+    public function createUserCharacter(ApiTester $I) {
         $user = User::first();
 
         $token = JWTAuth::fromUser($user);
@@ -62,14 +62,13 @@ class CharactersCest {
         
         $I->sendPOST(
                 '/me', [
-                    'name' => $faker->name, 
-                    'age' => $faker->numberBetween($min=12, $max=80),
-                    'skilled_in' => $faker->sentence,
-                    'user_id' => $user->id
+                    'name' => "Haafiz",
+                    'age' => rand(13,80),
+                    'skilled_in' => "Sword Fighting"
                     ]
         );
 
-        $I->seeResponseCodeIsJson();
+        $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
         
         $I->seeResponseContainsJson(['message' => 'character_created']);
@@ -78,7 +77,7 @@ class CharactersCest {
     }
 
     public function seeAuthenticatedUserCharacter(ApiTester $I) {
-        $user = User::first();  
+        $user = User::first();
         
         factory('App\Models\Character')->create(['user_id' => $user->id]);
         
@@ -88,13 +87,12 @@ class CharactersCest {
         $I->wantTo('See my Character as Authenticated User');
         $I->sendGET('/me');
 
-        $I->seeResponseCodeIsJson();
+        $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
 
         $I->seeResponseContainsJson(['message' => 'character']);
         
         $I->seeResponseJsonMatchesJsonPath('$.data.name');
         $I->seeResponseJsonMatchesJsonPath('$.data.age');
-        $I->seeResponseJsonMatchesJsonPath('$.data.experience');
     }
 }

@@ -3,10 +3,16 @@
 use App\Models\Character;
 use App\Models\User;
 
-class CharactersCest
+class FightsCest
 {
     public function _before(ApiTester $I)
     {
+        $user = User::first();
+
+        $token = JWTAuth::fromUser($user);
+        $I->amBearerAuthenticated($token);
+        
+        $this->user = $user;
     }
 
     public function _after(ApiTester $I)
@@ -16,8 +22,9 @@ class CharactersCest
     // tests
     public function listFights(ApiTester $I)
     {
-            
-        $I->wantTo("List all fights");
+        factory('App\Models\Character')->create(['user_id' => $this->user->id]);
+        
+        $I->wantTo("List all my fights");
         $I->sendGET("/me/fights");
         
         $I->seeResponseIsJson();

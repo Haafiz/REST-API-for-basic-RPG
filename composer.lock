@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "24043925d29998cebbf21f0e19822dae",
+    "content-hash": "fe79064565ec57082dcd3922431c5956",
     "packages": [
         {
             "name": "dingo/api",
@@ -3820,6 +3820,121 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "league/factory-muffin",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/factory-muffin.git",
+                "reference": "316ed2bac70178567f995d877b831804c9c58d5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/factory-muffin/zipball/316ed2bac70178567f995d877b831804c9c58d5a",
+                "reference": "316ed2bac70178567f995d877b831804c9c58d5a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "zizaco/factory-muff": "self.version"
+            },
+            "require-dev": {
+                "doctrine/orm": "2.5.*",
+                "illuminate/database": "5.0.*|5.1.*",
+                "league/factory-muffin-faker": "^2.0",
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "suggest": {
+                "doctrine/orm": "Factory Muffin supports doctrine through the repository store.",
+                "illuminate/database": "Factory Muffin supports eloquent through the model store.",
+                "league/factory-muffin-faker": "Factory Muffin is very powerful together with faker."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\FactoryMuffin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Scott Robertson",
+                    "email": "scottymeuk@gmail.com"
+                },
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "The goal of this package is to enable the rapid creation of objects for the purpose of testing.",
+            "homepage": "http://factory-muffin.thephpleague.com/",
+            "keywords": [
+                "factory",
+                "testing"
+            ],
+            "time": "2016-05-13T10:56:41+00:00"
+        },
+        {
+            "name": "league/factory-muffin-faker",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/factory-muffin-faker.git",
+                "reference": "61e0e40356edee0502f379cc85ca74e4234c687c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/factory-muffin-faker/zipball/61e0e40356edee0502f379cc85ca74e4234c687c",
+                "reference": "61e0e40356edee0502f379cc85ca74e4234c687c",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "1.6.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\FactoryMuffin\\Faker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "The goal of this package is to wrap faker to make it super easy to use with factory muffin.",
+            "homepage": "http://factory-muffin.thephpleague.com/",
+            "keywords": [
+                "factory",
+                "faker",
+                "testing"
+            ],
+            "time": "2016-05-13T10:47:29+00:00"
         },
         {
             "name": "mockery/mockery",

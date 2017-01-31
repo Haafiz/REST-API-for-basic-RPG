@@ -23,6 +23,10 @@ class User extends Model implements
         'name',
         'email',
     ];
+    
+    public function character(){
+        return $this->hasOne('App\Models\Character', 'user_id');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
