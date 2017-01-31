@@ -27,7 +27,7 @@ class CharacterController extends Controller
      */
     public function index(Request $request)
     {
-        $characters = $this->model->getList();
+        $characters = $this->model->select('id', 'name')->get();
 
         return [
             'message' => 'characters_list',

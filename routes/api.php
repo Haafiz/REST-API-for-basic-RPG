@@ -33,12 +33,6 @@ $api->version(
             [
         'middleware' => ['parseToken', 'api.auth'],
             ], function ($api) {
-        $api->get(
-                '/', [
-            'uses' => 'App\Http\Controllers\APIController@getIndex',
-            'as' => 'api.index'
-                ]
-        );
 
         /* Authentication and authenticated user related endpoints */
         $api->group(

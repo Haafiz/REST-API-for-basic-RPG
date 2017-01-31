@@ -24,15 +24,6 @@ class Character extends Model {
     ];
 
     /**
-     * Get Character List
-     * 
-     * @return Collection
-     */
-    public function getList() {
-        return $this->select('id', 'name')->get();
-    }
-
-    /**
      * Validation Rules for creating Character
      *
      * @var array 
