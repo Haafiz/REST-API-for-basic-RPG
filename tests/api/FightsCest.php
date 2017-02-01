@@ -32,13 +32,17 @@ class FightsCest
      */
     public function listFights(ApiTester $I)
     {
-        /** Setupfor this test */
+        /**
+ * Setupfor this test 
+*/
         factory('App\Models\Character')->create(['user_id' => $this->user->id]);
         
         $character = $this->user->character()->first();
-        factory('App\Models\Fight', 3)->create([
+        factory('App\Models\Fight', 3)->create(
+            [
             'character_id' => $character->id
-        ]);
+            ]
+        );
 
         $I->wantTo("List all my fights");
         $I->sendGET("/me/fights");
@@ -80,7 +84,9 @@ class FightsCest
      */
     public function createFight(ApiTester $I)
     {
-        /** Setupfor this test */
+        /**
+ * Setupfor this test 
+*/
         factory('App\Models\Character')->create(['user_id' => $this->user->id]);
         
         $opponentId = Character::first()->id;

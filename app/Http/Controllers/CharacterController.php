@@ -39,14 +39,15 @@ class CharacterController extends Controller
     /**
      * Show Character Record
      * 
-     * @param Request $request
-     * @param String $characterId
+     * @param  Request $request
+     * @param  String  $characterId
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $characterId) {
+    public function show(Request $request, $characterId) 
+    {
         $character = $this->repo->model->find($characterId);
         
-        if(!$character){
+        if(!$character) {
             abort(404);
         }
         

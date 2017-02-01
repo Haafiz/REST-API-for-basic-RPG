@@ -12,7 +12,8 @@ use Illuminate\Http\Exception\HttpResponseException;
 use App\Models\Character;
 use App\Repositories\FightRepository;
 
-class FightController extends Controller {
+class FightController extends Controller
+{
 
     /**
      * Resolve dependency like repo and pase character in constructor for rest 
@@ -20,7 +21,8 @@ class FightController extends Controller {
      * 
      * @param FightRepository $repo
      */
-    public function __construct(FightRepository $repo) {
+    public function __construct(FightRepository $repo) 
+    {
         $user = JWTAuth::parseToken()->authenticate();
         $this->character = $user->character()->first();
         $this->repo = $repo;
@@ -33,7 +35,8 @@ class FightController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index(Request $request) 
+    {
         $character = $this->character;
         if (!$character) {
             return JsonResponse(
@@ -56,18 +59,19 @@ class FightController extends Controller {
      * Create New Fight for current User
      *
      * @param \Illuminate\Http\Request $request
-     * @param App\Models\Character $characterModel
+     * @param App\Models\Character     $characterModel
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Character $characterModel) {
+    public function store(Request $request, Character $characterModel) 
+    {
 
         $character = $this->character;
         
         $opponentId = $request->get('opponent_id');
         $opponent = $characterModel->find($opponentId);
         
-        if(!$this->repo->validateFightInput($character, $opponent)){
+        if(!$this->repo->validateFightInput($character, $opponent)) {
             return new JsonResponse($this->repo->errors, Response::HTTP_BAD_REQUEST);
         }
         

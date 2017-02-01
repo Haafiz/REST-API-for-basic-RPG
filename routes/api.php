@@ -14,74 +14,74 @@
 $api = $app->make(Dingo\Api\Routing\Router::class);
 
 $api->version(
-        'v1', function ($api) {
-    $api->post(
-            '/auth/login', [
+    'v1', function ($api) {
+            $api->post(
+                '/auth/login', [
                 'as' => 'api.auth.login',
                 'uses' => 'App\Http\Controllers\Auth\AuthController@login',
-            ]
-    );
+                ]
+            );
 
-    $api->resource(
-            'characters', 'App\Http\Controllers\CharacterController', ['only' => [
-            'index', 'show'
-        ]
-            ]
-    );
+            $api->resource(
+                'characters', 'App\Http\Controllers\CharacterController', ['only' => [
+                'index', 'show'
+                ]
+                ]
+            );
 
-    $api->group(
-            [
-                'middleware' => ['parseToken', 'api.auth'],
-            ], function ($api) {
-
-        /* Authentication and authenticated user related endpoints */
-        $api->group(
+            $api->group(
                 [
-                    'namespace' => 'App\Http\Controllers\Auth',
-                    'prefix' => 'auth'
+                'middleware' => ['parseToken', 'api.auth'],
                 ], function ($api) {
-            $api->get(
-                    'user', [
-                        'uses' => 'AuthController@getUser',
-                        'as' => 'api.auth.user'
-                    ]
-            );
-            $api->patch(
-                    '/', [
-                        'uses' => 'AuthController@refreshToken',
-                        'as' => 'api.auth.refresh'
-                    ]
-            );
-            $api->delete(
-                    '/', [
-                        'uses' => 'AuthController@invalidateToken',
-                        'as' => 'api.auth.invalidate'
-                    ]
-            );
-        }
-        );
 
-        /* Fight and User Character specific routes */
-        $api->resource(
-                '/me/fights', 'App\Http\Controllers\FightController', ['only' => [
-                'index', 'store'
-            ]]
-        );
+                    /* Authentication and authenticated user related endpoints */
+                    $api->group(
+                        [
+                        'namespace' => 'App\Http\Controllers\Auth',
+                        'prefix' => 'auth'
+                        ], function ($api) {
+                            $api->get(
+                                'user', [
+                                'uses' => 'AuthController@getUser',
+                                'as' => 'api.auth.user'
+                                ]
+                            );
+                            $api->patch(
+                                '/', [
+                                'uses' => 'AuthController@refreshToken',
+                                'as' => 'api.auth.refresh'
+                                ]
+                            );
+                            $api->delete(
+                                '/', [
+                                'uses' => 'AuthController@invalidateToken',
+                                'as' => 'api.auth.invalidate'
+                                ]
+                            );
+                        }
+                    );
 
-        $api->post(
-                '/me', [
-                    'uses' => 'App\Http\Controllers\UserCharacterController@store',
-                    'as' => 'api.usercharacter.store'
-                ]
-        );
+                    /* Fight and User Character specific routes */
+                    $api->resource(
+                        '/me/fights', 'App\Http\Controllers\FightController', ['only' => [
+                        'index', 'store'
+                        ]]
+                    );
 
-        $api->get(
-                '/me', [
-                    'uses' => 'App\Http\Controllers\UserCharacterController@show',
-                    'as' => 'api.usercharacter.show'
-                ]
-        );
+                    $api->post(
+                        '/me', [
+                        'uses' => 'App\Http\Controllers\UserCharacterController@store',
+                        'as' => 'api.usercharacter.store'
+                        ]
+                    );
+
+                    $api->get(
+                        '/me', [
+                        'uses' => 'App\Http\Controllers\UserCharacterController@show',
+                        'as' => 'api.usercharacter.show'
+                        ]
+                    );
+                }
+            );
     }
-    );
-}
 );

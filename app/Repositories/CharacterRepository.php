@@ -9,9 +9,11 @@ use App\Models\Character;
  *
  * @author haafiz
  */
-class CharacterRepository {
+class CharacterRepository
+{
     
-    public function __construct(Character $model){
+    public function __construct(Character $model)
+    {
         $this->model = $model;
     }
     
@@ -32,7 +34,8 @@ class CharacterRepository {
      * 
      * @return Array Associative Array
      */
-    public function getValidationRules() {
+    public function getValidationRules() 
+    {
         return static::$validationRules;
     }
     
@@ -41,7 +44,8 @@ class CharacterRepository {
      * 
      * @return Collection
      */
-    public function getList(){
+    public function getList()
+    {
         return $this->model->select('id', 'name')->get();
     }
 }

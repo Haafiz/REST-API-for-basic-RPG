@@ -24,7 +24,8 @@ class User extends Model implements
         'email',
     ];
     
-    public function character(){
+    public function character()
+    {
         return $this->hasOne('App\Models\Character', 'user_id');
     }
 

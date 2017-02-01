@@ -9,23 +9,27 @@ use App\Models\Fight;
  *
  * @author haafiz
  */
-class FightRepository {
+class FightRepository
+{
     
-    public function __construct(Fight $model){
+    public function __construct(Fight $model)
+    {
         $this->model = $model;
     }
     
     /**
      * Get Fights by Character
      * 
-     * @param Character $character
+     * @param  Character $character
      * @return Collection
      */
-    public function getFightsByCharacter($character) {
+    public function getFightsByCharacter($character) 
+    {
         return $character->fights();
     }
     
-    public function validateFightInput($character, $opponent) {
+    public function validateFightInput($character, $opponent) 
+    {
         $errorArr = [];
         if (!$character) {
             $errorArr[] = [
@@ -34,25 +38,26 @@ class FightRepository {
                 ];
         }
         
-        if(!$opponent){
+        if(!$opponent) {
             $errorArr[] = [
                 'error' => 'invalid_opponent_id',
                 'error_detail' => 'There is no charcter with this opponent ID'
                 ];
         }
         
-        if(count($errorArr)){
+        if(count($errorArr)) {
             $this->errors = $errorArr;
         } else {
             return true;
         }
     }
     
-    public function createFight($characterId, $opponentId) {
+    public function createFight($characterId, $opponentId) 
+    {
         $fightPossibilities = ['won', 'lost', 'draw'];
-        $fightStatus = $fightPossibilities[rand(0,2)];
+        $fightStatus = $fightPossibilities[rand(0, 2)];
         
-        if($fightStatus === 'won' || $fightStatus === 'lost'){
+        if($fightStatus === 'won' || $fightStatus === 'lost') {
             $experience = 2;
         } else {
             $experience = 1;

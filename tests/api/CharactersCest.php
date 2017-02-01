@@ -4,13 +4,16 @@ use App\Models\Character;
 use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class CharactersCest {
+class CharactersCest
+{
 
-    public function _before(ApiTester $I) {
+    public function _before(ApiTester $I) 
+    {
         
     }
  
-   public function _after(ApiTester $I) {
+    public function _after(ApiTester $I) 
+    {
         
     }
 
@@ -19,7 +22,8 @@ class CharactersCest {
      * 
      * @param ApiTester $I
      */
-    public function listCharacters(ApiTester $I) {
+    public function listCharacters(ApiTester $I) 
+    {
         $I->wantTo("List all characters");
         $I->sendGET("/characters");
 
@@ -36,7 +40,8 @@ class CharactersCest {
      * 
      * @param ApiTester $I
      */
-    public function seeSpecificCharacter(ApiTester $I) {
+    public function seeSpecificCharacter(ApiTester $I) 
+    {
         $characterId = Character::first()->id;
 
         $I->wantTo("See Character with Character ID");
@@ -57,7 +62,8 @@ class CharactersCest {
      * 
      * @param ApiTester $I
      */
-    public function tryToSeeSpecificCharacterWithWrongCharacterId(ApiTester $I) {
+    public function tryToSeeSpecificCharacterWithWrongCharacterId(ApiTester $I) 
+    {
         $characterId = 99999;
 
         $I->wantTo("Try to See Character with wrong/invalid Character ID");
@@ -72,7 +78,8 @@ class CharactersCest {
      * 
      * @param ApiTester $I
      */
-    public function createUserCharacter(ApiTester $I) {
+    public function createUserCharacter(ApiTester $I) 
+    {
         $user = User::first();
 
         $token = JWTAuth::fromUser($user);
@@ -81,9 +88,9 @@ class CharactersCest {
         $I->wantTo("Create Character as Authnticated User");
         
         $I->sendPOST(
-                '/me', [
+            '/me', [
                     'name' => "Haafiz",
-                    'age' => rand(13,80),
+                    'age' => rand(13, 80),
                     'skilled_in' => "Sword Fighting"
                     ]
         );
@@ -101,7 +108,8 @@ class CharactersCest {
      * 
      * @param ApiTester $I
      */
-    public function seeAuthenticatedUserCharacter(ApiTester $I) {
+    public function seeAuthenticatedUserCharacter(ApiTester $I) 
+    {
         $user = User::first();
         
         factory('App\Models\Character')->create(['user_id' => $user->id]);

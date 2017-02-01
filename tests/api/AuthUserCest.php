@@ -38,5 +38,5 @@ class AuthUserCest
         $I->seeResponseJsonMatchesJsonPath('$.data.id');
         $I->seeResponseJsonMatchesJsonPath('$.data.name');
         $I->seeResponseJsonMatchesJsonPath('$.data.email');
-   }
+    }
 }

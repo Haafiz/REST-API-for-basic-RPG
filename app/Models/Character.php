@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Character extends Model {
+class Character extends Model
+{
 
-    public function user() {
+    public function user() 
+    {
         return $this->belongsToOne(config('user_model_path'));
     }
 
-    public function fights() {
+    public function fights() 
+    {
         return $this->hasMany('App\Models\Fight', 'character_id');
     }
 
