@@ -117,6 +117,10 @@ CodeCeption is used as testing framework for both Unit and API tests.
 ## Running Tests
 In tests directory there are api as well as unit tests.  which can be run by following command:
 `vendor/bin/codecept run`
+or for more verbose use:
+`vendor/bin/codecept run -vv`
+or for even more verbose use:
+`vendor/bin/codecept run -vvv`
 
 However few configurations are required before that: 
 ### Test configurations
@@ -131,3 +135,10 @@ In `codeception.yml` there are configurations already done to enable code covera
 
 This command will show coverage at the end of test executation in terminal and will also make HTML based Code Coverage report in 
 `_output/coverage` directory. Open index.html to see report.
+
+## Endpoint URL's error:
+It is possible that above API endpoint may have typo so more accurate place to see endpoints reference is API tests which can be found in `tests/api` directory. 
+
+
+## Reporting Bug
+In case you guys find any bug or experience any problem during installation or configuration or in understanding, feel free to contact by creating issue, as improvement is continouos process.
