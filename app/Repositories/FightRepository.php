@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Fight;
 
 /**
- * Description of FightRepository
+ * FightRepository having domain logic related to Fight
  *
  * @author haafiz
  */
@@ -15,6 +15,12 @@ class FightRepository {
         $this->model = $model;
     }
     
+    /**
+     * Get Fights by Character
+     * 
+     * @param Character $character
+     * @return Collection
+     */
     public function getFightsByCharacter($character) {
         return $character->fights();
     }

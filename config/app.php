@@ -15,4 +15,6 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+    
+    'user_model_path' => 'App\User',
 ];

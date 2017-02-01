@@ -9,18 +9,18 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Exception\HttpResponseException;
-use App\Models\Character;
-use App\Models\User;
+use App\Repositories\CharacterRepository;
+use App\User;
 
 class UserCharacterController extends Controller {
 
-    public function __construct(Character $model) {
-        $this->model = $model;
+    public function __construct(CharacterRepository $repo) {
+        $this->repo = $repo;
         $this->currentUser = JWTAuth::parseToken()->authenticate();
     }
 
     /**
-     * List System characters
+     * Create User Character
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -30,7 +30,7 @@ class UserCharacterController extends Controller {
         $input = $request->all();
         $input['user_id'] = $this->currentUser->id;
         
-        $validator = \Validator::make($input, $this->model->getValidationRules());
+        $validator = \Validator::make($input, $this->repo->getValidationRules());
         if ($validator->fails()) {
             return new JsonResponse(
                     [
@@ -39,7 +39,7 @@ class UserCharacterController extends Controller {
             );
         }
         
-        $this->model->create($input);
+        $this->repo->model->create($input);
 
         return [
             'message' => 'character_created',
@@ -47,6 +47,13 @@ class UserCharacterController extends Controller {
         ];
     }
 
+    /**
+     * Show User Character
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request) {
         $character = $this->currentUser->character()->first();
         if (!$character) {

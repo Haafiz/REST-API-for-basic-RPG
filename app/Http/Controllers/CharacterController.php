@@ -9,15 +9,16 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Exception\HttpResponseException;
-use App\Repositories\Characters;
+use App\Repositories\CharacterRepository;
 
 class CharacterController extends Controller
 {
     
-    public function __construct(Character $repo)
+    public function __construct(CharacterRepository $repo)
     {
         $this->repo = $repo;
     }
+    
     /**
      * List System characters
      *
@@ -35,6 +36,13 @@ class CharacterController extends Controller
         ];
     }
     
+    /**
+     * Show Character Record
+     * 
+     * @param Request $request
+     * @param String $characterId
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request, $characterId) {
         $character = $this->repo->model->find($characterId);
         

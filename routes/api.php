@@ -17,8 +17,8 @@ $api->version(
         'v1', function ($api) {
     $api->post(
             '/auth/login', [
-        'as' => 'api.auth.login',
-        'uses' => 'App\Http\Controllers\Auth\AuthController@login',
+                'as' => 'api.auth.login',
+                'uses' => 'App\Http\Controllers\Auth\AuthController@login',
             ]
     );
 
@@ -31,31 +31,31 @@ $api->version(
 
     $api->group(
             [
-        'middleware' => ['parseToken', 'api.auth'],
+                'middleware' => ['parseToken', 'api.auth'],
             ], function ($api) {
 
         /* Authentication and authenticated user related endpoints */
         $api->group(
                 [
-            'namespace' => 'App\Http\Controllers\Auth',
-            'prefix' => 'auth'
+                    'namespace' => 'App\Http\Controllers\Auth',
+                    'prefix' => 'auth'
                 ], function ($api) {
             $api->get(
                     'user', [
-                'uses' => 'AuthController@getUser',
-                'as' => 'api.auth.user'
+                        'uses' => 'AuthController@getUser',
+                        'as' => 'api.auth.user'
                     ]
             );
             $api->patch(
                     '/', [
-                'uses' => 'AuthController@refreshToken',
-                'as' => 'api.auth.refresh'
+                        'uses' => 'AuthController@refreshToken',
+                        'as' => 'api.auth.refresh'
                     ]
             );
             $api->delete(
                     '/', [
-                'uses' => 'AuthController@invalidateToken',
-                'as' => 'api.auth.invalidate'
+                        'uses' => 'AuthController@invalidateToken',
+                        'as' => 'api.auth.invalidate'
                     ]
             );
         }

@@ -26,5 +26,6 @@ coverage:
         - app/Http/*
         - app/Models/*
         - app/Providers/*
+        - app/Repositories/*
     exclude:
         - app/storage

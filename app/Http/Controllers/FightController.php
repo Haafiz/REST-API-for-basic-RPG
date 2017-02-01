@@ -14,6 +14,12 @@ use App\Repositories\FightRepository;
 
 class FightController extends Controller {
 
+    /**
+     * Resolve dependency like repo and pase character in constructor for rest 
+     * of the class
+     * 
+     * @param FightRepository $repo
+     */
     public function __construct(FightRepository $repo) {
         $user = JWTAuth::parseToken()->authenticate();
         $this->character = $user->character()->first();
@@ -21,7 +27,7 @@ class FightController extends Controller {
     }
 
     /**
-     * List System characters
+     * List User character's Fights
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -46,6 +52,14 @@ class FightController extends Controller {
         ];
     }
 
+    /**
+     * Create New Fight for current User
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param App\Models\Character $characterModel
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Character $characterModel) {
 
         $character = $this->character;

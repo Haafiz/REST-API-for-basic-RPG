@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Character;
-use App\Models\User;
+use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CharactersCest {

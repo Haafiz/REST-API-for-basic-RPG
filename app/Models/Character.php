@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Character extends Model {
 
     public function user() {
-        return $this->belongsToOne('App\Models\User');
+        return $this->belongsToOne(config('user_model_path'));
     }
 
     public function fights() {

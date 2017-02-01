@@ -1,7 +1,7 @@
 <?php
 
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Models\User;
+use App\User;
 
 class AuthUserCest
 {

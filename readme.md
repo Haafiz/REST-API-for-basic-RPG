@@ -1,22 +1,23 @@
 # RESTful API for Basic features of Role Playing Game
-Description come here
 
-## What's Used
+A small API that provides JSON data via HTTP to be consumed by a frontend-app or other services.
 
-- [Lumen 5.3](https://github.com/laravel/lumen/tree/v5.3.0).
-- [JWT Auth](https://github.com/tymondesigns/jwt-auth) for Lumen Application. <sup>[1]</sup>
-- [Dingo](https://github.com/dingo/api) to easily and quickly build your own API. <sup>[1]</sup>
--
+It use Laravel's microframework Lumen 5.3 as Framework and utilize CodeCeption for doing API testing.
+This repository can be used as boiler plate or for learning purpose. This API is for a Role Playing Game. So its endpoints are mentioned in usage section to utilize to play game.
+I have used MySQL and tested it with MySQL however other RDMS that Laravel support can be used.
+
 
 ## Quick Setup
 
 - Clone this repo or download it's release archive and extract it somewhere
 - You may delete `.git` folder if you get this code via `git clone`
 - Run `composer install`
-- Run `php artisan jwt:generate`
 - Configure your `.env` file for authenticating via database. You can simply rename `.env.example` to `.env` and then updating DB information.
 - Set the `API_PREFIX` parameter in your .env file (usually `api`).
 - Run `php artisan migrate --seed`
+- In .env file there is DB_TEST_DATABASE that should be another DB on your system having same user/pass but empty DB that will be populated on runtime by Codeception and will be used in test environment.
+- Give write permissions to 
+
 
 ## Running API
 
@@ -26,21 +27,15 @@ Description come here
 php -S localhost:8000 -t public/
 ```
 
-Or use artisan command:
 
-```sh
-php artisan serve
-```
-
-
-## Endpoint Usage
+## Endpoints Usage
 
 ### Authenticating User Login
 To authenticate a user, make a `POST` request to `/api/auth/login` with parameter as mentioned below:
 
 ```
-email: johndoe@example.com
-password: johndoe
+email: kaasib@gmail.com
+password: Haafiz
 ```
 
 Request:
@@ -59,33 +54,55 @@ Response:
   }
 }
 ```
-
-- With token provided by above request, you can check authenticated user by sending a `GET` request to: `/api/auth/user`.
-
-Request:
+For all requests where login is required use same token in header like the request below
 
 ```sh
-curl -X GET -H "Authorization: Bearer a_long_token_appears_here" "http://localhost:8000/api/auth/user"
+GET /api/auth/user HTTP/1.1
+Host: localhost:8000
+Authorization: Bearer {That long token here}
 ```
 
-Response:
+### See Authenticated User
 
+Request: `GET api/auth/user`  with authentication token
+
+### Refresh Token
+
+Request: `PATCH api/auth`  with authentication token
+
+### Blacklist Token
+
+Request: `DELETE api/auth`  with authentication token
+
+### Explore All Characters
+Request: `GET api/characters`  to see list of all characters
+Request: `GET api/characters/{characterId}`  to see detail of specific character
+
+### Create a character
+Request: `STORE api/me`  with authentication token  to create User's Character
+Params Example: 
 ```
-{
-  "success": {
-    "user": {
-      "id": 1,
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "created_at": null,
-      "updated_at": null
-    }
-  }
-}
+name' => "Haafiz",
+'age' => rand(13,80),
+'skilled_in' => "Sword Fighting"
 ```
 
-- To refresh your token, simply send a `PATCH` request to `/api/auth`.
-- You can also invalidate token by sending a `DELETE` request to `/api/auth`.
+
+Request: `GET api/me`  to see current user's character info
+
+### Create new Fight
+Request: `STORE api/me/fights`  with authentication token  to create User's Character
+Params: Only parameter is `opponent_id` where opponent_id can be ID of any character in system, which can be explored
+
+
+Request: `GET api/me/fights`  with authentication token to list current user's character's fights
+
+## More Info
+- Please note that User game is overall persistent so he can login any time and resume game from there.
+- Also when a fight is completed, user's every fight have record of user's experience points. 
+- A fight can have different experience points depends on fight's outcome.
+- So experience is in user's every fight record.
+- So it can be used for reporting or other purposes as game will proceed. Right now we are keeping record of this but not showing anywhere.
 
 ## Credits
 
@@ -93,3 +110,24 @@ Response:
 Laravel and Lumen is a trademark of Taylor Otwell
 Sean Tymon officially holds "Laravel JWT" license
 ```
+This repo is Lumen, JWT and Dingo integration: https://github.com/krisanalfa/lumen-jwt 
+CodeCeption is used as testing framework for both Unit and API tests.
+
+
+## Running Tests
+In tests directory there are api as well as unit tests.  which can be run by following command:
+`vendor/bin/codecept run`
+
+However few configurations are required before that: 
+### Test configurations
+
+- In .env file there is DB_TEST_DATABASE that should be another DB on your system having same user/pass but empty DB that will be populated on runtime by Codeception and will be used in test environment. 
+- You also need to edit codeception.yml and provide your DB credentials under DB module. 
+This DB module will populate a default DB in database using rpg.sql in _data directory and it will also clean it after running test case. 
+
+### Code Coverage
+In `codeception.yml` there are configurations already done to enable code coverage. So to see code coverage report, run:
+`vendor/bin/codecept run --coverage --coverage-html`
+
+This command will show coverage at the end of test executation in terminal and will also make HTML based Code Coverage report in 
+`_output/coverage` directory. Open index.html to see report.
