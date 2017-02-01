@@ -141,4 +141,4 @@ It is possible that above API endpoint may have typo so more accurate place to s
 
 
 ## Reporting Bug
-In case you guys find any bug or experience any problem during installation or configuration or in understanding, feel free to contact by creating issue, as improvement is continouos process.
+In case you guys find any bug or experience any problem during installation or configuration or in understanding, feel free to contact by creating issue, as improvement is continouos process. After well tested softwares are community and time tested :) .
