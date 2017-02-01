@@ -16,7 +16,18 @@ I have used MySQL and tested it with MySQL however other RDMS that Laravel suppo
 - Set the `API_PREFIX` parameter in your .env file (usually `api`).
 - Run `php artisan migrate --seed`
 - In .env file there is DB_TEST_DATABASE that should be another DB on your system having same user/pass but empty DB that will be populated on runtime by Codeception and will be used in test environment.
-- Give write permissions to 
+- Give write permissions to `/storage` directory.
+- then `composer dump-autoload`
+- Before running tests, also add test database credentials for DB_TEST_DATABASE in `codeception.yml` in this section:
+```
+- Db:
+            dsn: 'mysql:host=localhost;dbname=testrpg'
+            user: 'root'
+            password: 'password'
+            dump: tests/_data/rpg.sql
+            populate: true
+```
+Replace Test DB name with `testrpg`, root with your username and password with your DB password. I recommend not changing dump or other settings.
 
 
 ## Running API
