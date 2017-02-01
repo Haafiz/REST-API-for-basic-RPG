@@ -17,7 +17,7 @@ modules:
         - Db:
             dsn: 'mysql:host=localhost;dbname=testrpg'
             user: 'root'
-            password: '786'
+            password: 'password'
             dump: tests/_data/rpg.sql
             populate: true
 coverage:

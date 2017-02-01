@@ -85,8 +85,8 @@ class FightsCest
     public function createFight(ApiTester $I)
     {
         /**
- * Setupfor this test 
-*/
+         * Setupfor this test 
+         */
         factory('App\Models\Character')->create(['user_id' => $this->user->id]);
         
         $opponentId = Character::first()->id;

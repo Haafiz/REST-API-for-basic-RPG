@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\User;
 
 class UserTableSeeder extends Seeder
 {
@@ -12,7 +12,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Models\User')->create([
+        factory('App\User')->create([
             'email' => 'kaasib@gmail.com',
             'password' => app('hash')->make('Haafiz'),
             'remember_token' => str_random(10),
